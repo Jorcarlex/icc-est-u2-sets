@@ -23,30 +23,37 @@ public class Contacto {
         return telefono;
     }
 
+    // Opcional: puedes sobreescribir toString() para imprimir el contacto de forma
+    // amigable
+
+    @Override
     public String toString() {
         return nombre + " " + apellido + " - " + telefono;
     }
 
+    // Opcional: sobreescribir equals() y hashCode() para definir cuándo dos
+    // Contacto son iguales
+
+    // En este caso, podríamos definir que dos Contacto son iguales si tienen el
+    // mismo nombre y apellido.
+
+    @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-
-        if (obj == this) {
+        if (this == obj) // referencias de memora
             return true;
-        }
-
-        if (obj.getClass() != this.getClass()) {
+        if (obj == null) // obj es null
             return false;
-        }
+        if (getClass() != obj.getClass())
+            return false;
 
-        Contacto contacto = (Contacto) obj;
-
-        return this.nombre.equals(contacto.getNombre()) && this.apellido.equals(contacto.getApellido())
-                && this.telefono.equals(contacto.getTelefono());
+        Contacto other = (Contacto) obj;
+        return nombre.equals(other.nombre) && apellido.equals(other.apellido);
     }
 
+    @Override
     public int hashCode() {
-        return nombre.hashCode() + apellido.hashCode() + telefono.hashCode();
+        // Por simplicidad, combinamos los hash de nombre y apellido
+        return nombre.hashCode() + apellido.hashCode();
     }
+
 }
